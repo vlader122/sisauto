@@ -1,5 +1,8 @@
 using DB;
+using DB.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository;
+using Repository.interfaces;
 using Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +13,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Repositorio
+builder.Services.AddScoped<PaisesRepository>();
+
+//Servicio
 builder.Services.AddScoped<PaisesService>();
+
 builder.Services.AddDbContext<SisautoContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("SISAUTOConnection"));

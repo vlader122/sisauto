@@ -2,6 +2,7 @@
 using DB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service;
+using System.Collections;
 using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,63 +13,45 @@ namespace SISAUTO.Controllers
     [ApiController]
     public class PaisesController : ControllerBase
     {
-        private readonly SisautoContext _context;
         private readonly PaisesService _paisesService;
-        public PaisesController(SisautoContext context, PaisesService paisesService)
+        public PaisesController(PaisesService paisesService)
         {
-            _context = context;
             _paisesService = paisesService;
         }
         // GET: api/<PaisesController>
         [HttpGet]
-        public List<Paises> Get()
+        public async Task<ActionResult<IEnumerable<Paises>>> Get()
         {
-            return _paisesService.GetAll();
+            return Ok(await _paisesService.GetAll());
         }
 
         // GET api/<PaisesController>/5
         [HttpGet("{id}")]
-        public Paises Get(int id)
+        public async Task<ActionResult<Paises>> GetById(int id)
         {
-            Paises pais = _context.Paises.Find(id);
-            return pais;
+            return Ok(await _paisesService.GetById(id));
         }
 
         // POST api/<PaisesController>
         [HttpPost]
-        public IActionResult Post(Paises pais)
+        public async Task<IActionResult> Post(Paises pais)
         {
-            _context.Paises.Add(pais);
-            _context.SaveChanges();
-            return Ok();
+            return Ok(await _paisesService.Create(pais));
         }
 
         // PUT api/<PaisesController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Paises pais)
+        public async Task<IActionResult> Put(Paises pais)
         {
-            Paises paisActualizado =_context.Paises.Find(id);
-            if (paisActualizado != null)
-            {
-                paisActualizado.Nombre = pais.Nombre;
-                _context.SaveChanges();
-                return Ok();
-            }
-            return BadRequest();
+            return Ok(await _paisesService.Update(pais));
         }
 
         // DELETE api/<PaisesController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            Paises paisEliminar = _context.Paises.Find(id);
-            if (paisEliminar != null)
-            {
-                _context.Paises.Remove(paisEliminar);
-                _context.SaveChanges();
-                return Ok();
-            }
-            return NotFound();
+            await _paisesService.Delete(id);
+            return Ok("{ message: Deleted }");
         }
     }
 }

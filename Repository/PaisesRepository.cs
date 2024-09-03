@@ -1,5 +1,6 @@
 ﻿using DB;
 using DB.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository.interfaces;
 
 namespace Repository
@@ -11,30 +12,40 @@ namespace Repository
         {
             _context = context;
         }
-        public void Create(Paises entity)
+
+        public async Task<Paises> Create(Paises entity)
         {
-            throw new NotImplementedException();
+            _context.Paises.Add(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public void Delete(int id)
+        public async Task<Paises> Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Paises.FindAsync(id);
+            if (entity != null) {
+                _context.Paises.Remove(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            return null;
         }
 
-        public List<Paises> GetAll()
+        public async Task<List<Paises>> GetAll()
         {
-            List<Paises> paises = _context.Paises.ToList();
-            return paises;
+            return await _context.Paises.ToListAsync();
         }
 
-        public Paises GetById(int id)
+        public async Task<Paises> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Paises.FindAsync(id);
         }
 
-        public void Update(Paises entity)
+        public async Task<Paises> Update(Paises entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

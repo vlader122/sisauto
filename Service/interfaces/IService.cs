@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.interfaces
+namespace Service.interfaces
 {
-    public interface IRepository<T>
+    public interface IService<T>
     {
         Task<List<T>> GetAll();
         Task<T> GetById(int id);
