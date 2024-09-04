@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DB.Models
@@ -19,6 +20,7 @@ namespace DB.Models
         public string Telefono { get; set; }
         [ForeignKey("PaisID")]
         public int PaisID { get; set; }
-        public virtual Paises Pais { get; set; }
+        [JsonIgnore]
+        public virtual Paises ?Pais { get; set; }
     }
 }

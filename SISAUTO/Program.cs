@@ -1,9 +1,12 @@
 using DB;
 using DB.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Repository;
 using Repository.interfaces;
 using Service;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,18 +15,33 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
 
-//Repositorio
-builder.Services.AddScoped<PaisesRepository>();
-
-//Servicio
-builder.Services.AddScoped<PaisesService>();
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 builder.Services.AddDbContext<SisautoContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("SISAUTOConnection"));
 });
+
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<SisautoContext>();
+//Repositorio
+builder.Services.AddScoped<PaisesRepository>();
+builder.Services.AddScoped<ClientesRepository>();
+//Servicio
+builder.Services.AddScoped<PaisesService>();
+builder.Services.AddScoped<ClientesService>();
+
 
 var app = builder.Build();
 
@@ -39,6 +57,10 @@ using (var scope = app.Services.CreateScope())
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+app.MapIdentityApi<IdentityUser>();
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

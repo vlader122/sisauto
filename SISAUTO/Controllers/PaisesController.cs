@@ -1,5 +1,6 @@
 ﻿using DB;
 using DB.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 using System.Collections;
@@ -19,7 +20,7 @@ namespace SISAUTO.Controllers
             _paisesService = paisesService;
         }
         // GET: api/<PaisesController>
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<ActionResult<IEnumerable<Paises>>> Get()
         {
             return Ok(await _paisesService.GetAll());

@@ -1,9 +1,10 @@
 ﻿using DB.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB
 {
-    public class SisautoContext : DbContext
+    public class SisautoContext : IdentityDbContext
     {
         public SisautoContext(DbContextOptions<SisautoContext> options)
             : base(options) { }
