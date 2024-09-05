@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DB.Models
 {
-    public class Clientes
+    public class Clientes : IValidatableObject
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,10 +17,19 @@ namespace DB.Models
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Direccion {  get; set; }
+        [RegularExpression(@"^\+(591)\s?\d{8,9}$")]
         public string Telefono { get; set; }
         [ForeignKey("PaisID")]
         public int PaisID { get; set; }
         [JsonIgnore]
         public virtual Paises ?Pais { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Nombre.Length < 2 || Nombre.Length > 10)
+            {
+                yield return new ValidationResult("La longitud del nombre tiene que estar entre 2 y 10", new[] { "Nombre" });
+            }
+        }
     }
 }

@@ -18,10 +18,6 @@ namespace Service
         }
         public async Task<Clientes> Create(Clientes entity)
         {
-            if (entity.Pais)
-            {
-
-            }
             return await _clientesRepository.Create(entity);
         }
 
