@@ -11,5 +11,8 @@ namespace DB
 
         public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Paises> Paises { get; set; }
+        public DbSet<Servicios> Servicios { get; set; }
+        public DbSet<Ordenes> Ordenes { get; set; }
+        public DbSet<DetalleOrdenes> DetalleOrdenes { get; set; }
     }
 }

@@ -38,9 +38,19 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 //Repositorio
 builder.Services.AddScoped<PaisesRepository>();
 builder.Services.AddScoped<ClientesRepository>();
+builder.Services.AddScoped<ServiciosRepository>();
+builder.Services.AddScoped<OrdenesRepository>();
+builder.Services.AddScoped<DetalleOrdenesRepository>();
+
+
 //Servicio
 builder.Services.AddScoped<PaisesService>();
 builder.Services.AddScoped<ClientesService>();
+builder.Services.AddScoped<ServiciosService>();
+builder.Services.AddScoped<OrdenesService>();
+builder.Services.AddScoped<DetalleOrdenesService>();
+
+
 
 builder.Services.AddCors(options =>
 {
