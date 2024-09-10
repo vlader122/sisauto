@@ -45,13 +45,11 @@ namespace Repository
         public async Task<Ordenes> GetById(int id)
         {
             var orden = await _context.Ordenes
-                .Where(o => o.OrdenID == id)
+                .Include(c => c.DetalleOrdenes)
+                    .ThenInclude(d => d.Servicio)
+                .Include(c => c.Cliente)
+                .Where(o=>o.OrdenID == id)
                 .FirstOrDefaultAsync();
-            if (orden != null)
-            {
-                await _context.Entry(orden).Reference(o => o.Cliente).LoadAsync();
-            }
-
             return orden;
         }
 

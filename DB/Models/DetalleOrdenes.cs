@@ -18,8 +18,9 @@ namespace DB.Models
         public int ServicioID { get; set; }
         public int Cantidad { get; set; }
         public decimal Subtotal { get; set; }
+        public virtual Servicios Servicio { get; set; }
+        [JsonIgnore]
         public virtual Ordenes ?Orden { get; set; }
-        public virtual Servicios ?Servicio { get; set; }
 
     }
 }

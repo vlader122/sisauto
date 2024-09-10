@@ -44,15 +44,7 @@ namespace Repository
 
         public async Task<DetalleOrdenes> GetById(int id)
         {
-            var detalleOrden = await _context.DetalleOrdenes
-                .Where(dp => dp.DetalleOrdenID == id)
-                .FirstOrDefaultAsync();
-            if (detalleOrden != null)
-            {
-                await _context.Entry(detalleOrden).Reference(dp => dp.Servicio).LoadAsync();
-                await _context.Entry(detalleOrden).Reference(dp => dp.Orden).LoadAsync();
-            }
-            return detalleOrden;
+            return await _context.DetalleOrdenes.FindAsync(id);
         }
 
         public async Task<DetalleOrdenes> Update(DetalleOrdenes entity)

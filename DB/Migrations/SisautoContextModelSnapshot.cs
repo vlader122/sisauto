@@ -53,7 +53,7 @@ namespace DB.Migrations
 
                     b.HasIndex("PaisID");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("DB.Models.DetalleOrdenes", b =>
@@ -82,7 +82,7 @@ namespace DB.Migrations
 
                     b.HasIndex("ServicioID");
 
-                    b.ToTable("DetalleOrdenes");
+                    b.ToTable("DetalleOrdenes", (string)null);
                 });
 
             modelBuilder.Entity("DB.Models.Ordenes", b =>
@@ -106,7 +106,7 @@ namespace DB.Migrations
 
                     b.HasIndex("ClienteID");
 
-                    b.ToTable("Ordenes");
+                    b.ToTable("Ordenes", (string)null);
                 });
 
             modelBuilder.Entity("DB.Models.Paises", b =>
@@ -123,7 +123,7 @@ namespace DB.Migrations
 
                     b.HasKey("PaisID");
 
-                    b.ToTable("Paises");
+                    b.ToTable("Paises", (string)null);
                 });
 
             modelBuilder.Entity("DB.Models.Servicios", b =>
@@ -147,7 +147,7 @@ namespace DB.Migrations
 
                     b.HasKey("ServicioID");
 
-                    b.ToTable("Servicios");
+                    b.ToTable("Servicios", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

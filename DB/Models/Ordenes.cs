@@ -17,6 +17,8 @@ namespace DB.Models
         public int ClienteID { get; set; }
         public DateTime fecha { get; set; }
         public decimal Total { get; set; }
-        public virtual Clientes ?Cliente { get; set; }
+        public virtual Clientes Cliente { get; set; }
+        public virtual ICollection<DetalleOrdenes> DetalleOrdenes { get; set; }
+
     }
 }
