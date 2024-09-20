@@ -49,7 +49,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _clientesService.Delete(id);
-            return Ok("{ message: Deleted }");
+            return Ok();
         }
     }
 }

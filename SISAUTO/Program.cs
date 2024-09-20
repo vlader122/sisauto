@@ -54,14 +54,15 @@ builder.Services.AddScoped<DetalleOrdenesService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigins",
+    options.AddPolicy("AllowAngularApp",
         policy =>
         {
-            policy.WithOrigins("http:://example.com")
+            policy.WithOrigins("http://localhost:4200")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
 });
+
 
 var app = builder.Build();
 
@@ -86,7 +87,7 @@ else
 
 app.MapIdentityApi<IdentityUser>();
 
-app.UseCors("AllowSpecificOrigins");
+app.UseCors("AllowAngularApp");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

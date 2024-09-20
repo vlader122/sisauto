@@ -17,7 +17,6 @@ namespace DB.Models
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Direccion {  get; set; }
-        [RegularExpression(@"^\+(591)\s?\d{8,9}$")]
         public string Telefono { get; set; }
         [ForeignKey("PaisID")]
         public int PaisID { get; set; }

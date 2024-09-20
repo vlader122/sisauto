@@ -20,7 +20,7 @@ namespace SISAUTO.Controllers
             _paisesService = paisesService;
         }
         // GET: api/<PaisesController>
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Paises>>> Get()
         {
             return Ok(await _paisesService.GetAll());
